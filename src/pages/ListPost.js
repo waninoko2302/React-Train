@@ -1,18 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-import ItemListPost from '../components/ItemListPost';
+import ItemListPosts from '../components/ItemListPosts';
+import {Table} from 'semantic-ui-react';
+// import Control from '../components/Control';
 import Pagination from '../components/Pagination';
-import {Table, Dimmer, Loader} from 'semantic-ui-react';
 
-function ListPostPage () {
+function ListPost () {
   const [posts, setPosts] = useState ([]);
   const [loading, setLoading] = useState (false);
-  const [curPage, setCurPage] = useState (1);
-  const [itemPerPage] = useState (10);
+  const [currentPage, setCurrentPage] = useState (1);
+  const [postPerPage] = useState (10);
 
   useEffect (() => {
-    const fetchPostData = async () => {
+    const fetchPost = async () => {
       setLoading (true);
       const res = await axios.get (
         'https://jsonplaceholder.typicode.com/posts'
@@ -20,26 +21,22 @@ function ListPostPage () {
       setPosts (res.data);
       setLoading (false);
     };
-    fetchPostData ();
+    fetchPost ();
   }, []);
 
-  const indexOfLastPost = curPage * itemPerPage;
-  const indexOfFirstPost = indexOfLastPost - itemPerPage;
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFirstPost = indexOfLastPost - postPerPage;
   const currentPost = posts.slice (indexOfFirstPost, indexOfLastPost);
-  const paginate = pageNumber => setCurPage (pageNumber);
+  const paginate = pageNumber => setCurrentPage (pageNumber);
 
-  let Post = null;
+  let xhtmlPost = null;
 
   if (loading) {
-    return (
-      <Dimmer active inverted>
-        <Loader inverted content='Loading' />
-      </Dimmer>
-    );
+    return <h2>Loading...</h2>;
   } else {
     if (currentPost.length > 0) {
-      Post = currentPost.map ((post, i) => {
-        return <ItemListPost key={i} index={i} post={post} />;
+      xhtmlPost = currentPost.map ((post, i) => {
+        return <ItemListPosts key={i} index={i} post={post} />;
       });
     }
   }
@@ -49,6 +46,7 @@ function ListPostPage () {
       <div className="page-header">
         <h1>List Post</h1>
       </div>
+      {/* <Control /> */}
       <Table celled>
         <Table.Header>
           <Table.Row>
@@ -60,10 +58,10 @@ function ListPostPage () {
             <Table.HeaderCell>Action</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
-        {Post}
+        {xhtmlPost}
       </Table>
       <Pagination
-        postPerPost={itemPerPage}
+        postPerPost={postPerPage}
         totalPost={posts.length}
         paginate={paginate}
       />
@@ -71,4 +69,4 @@ function ListPostPage () {
   );
 }
 
-export default ListPostPage;
+export default ListPost;

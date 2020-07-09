@@ -1,4 +1,4 @@
-.justify {
-  justify-content: flex-end !important;
-  margin-right: 3em !important;
+.justify-content{
+  position: absolute;
+  right: 4em;
 }

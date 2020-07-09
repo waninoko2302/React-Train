@@ -1,32 +1,32 @@
-import './Pagination.css';
 import React from 'react';
+import './Pagination.css';
 
 function Panigation({postPerPost, totalPost, paginate}) {
-  const pageNumber = [];
+    const pageNumber = [];
 
-  for (let i = 1; i <= Math.ceil (totalPost / postPerPost); i++) {
-    pageNumber.push (i);
-  }
-
-  return (
-    <nav aria-label="Page navigation example">
-      <ul className="pagination justify">
-        <li className="page-item">
-          <a className="page-link" href=".">Previous</a>
-        </li>
-        {pageNumber.map (number => (
-          <li key={number} className="page-item">
-            <a onClick={() => paginate (number)} className="page-link" href=".#">
-              {number}
-            </a>
-          </li>
-        ))}
-        <li className="page-item">
-          <a className="page-link" href=".#">Next</a>
-        </li>
-      </ul>
-    </nav>
-  );
+    for(let i = 1; i <= Math.ceil(totalPost / postPerPost); i++){
+        pageNumber.push(i);
+    } 
+    
+    return (
+        <nav aria-label="Page navigation example">
+            <ul className="pagination justify-content">
+                <li className="page-item">
+                    <a href=" #"className="page-link">Previous</a>
+                </li>
+                {pageNumber.map(number => (
+                    <li key={number} className="page-item">
+                        <a href=" #"onClick={() => paginate(number)} className="page-link">
+                            {number}
+                        </a>
+                    </li>
+                ))}
+                <li className="page-item">
+                    <a href=" #"className="page-link">Next</a>
+                </li>
+            </ul>
+        </nav>
+    );
 }
 
 export default Panigation;
