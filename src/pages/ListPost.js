@@ -5,6 +5,7 @@ import ItemListPosts from '../components/ItemListPosts';
 import {Table} from 'semantic-ui-react';
 // import Control from '../components/Control';
 import Pagination from '../components/Pagination';
+// import UserContext from '../context/UserContext';
 
 function ListPost () {
   const [posts, setPosts] = useState ([]);
@@ -36,7 +37,7 @@ function ListPost () {
   } else {
     if (currentPost.length > 0) {
       xhtmlPost = currentPost.map ((post, i) => {
-        return <ItemListPosts key={i} index={i} post={post} />;
+        return <ItemListPosts key={i} index={i} post={post}/>;
       });
     }
   }
@@ -52,7 +53,6 @@ function ListPost () {
           <Table.Row>
             <Table.HeaderCell>STT</Table.HeaderCell>
             <Table.HeaderCell>Title</Table.HeaderCell>
-            <Table.HeaderCell>Created Date</Table.HeaderCell>
             <Table.HeaderCell>Created By</Table.HeaderCell>
             <Table.HeaderCell>Total Comments</Table.HeaderCell>
             <Table.HeaderCell>Action</Table.HeaderCell>

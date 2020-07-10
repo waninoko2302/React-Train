@@ -47,7 +47,6 @@ function DetailPost (props) {
           <Table.HeaderCell>User ID</Table.HeaderCell>
           <Table.HeaderCell>Title</Table.HeaderCell>
           <Table.HeaderCell>Body</Table.HeaderCell>
-          <Table.HeaderCell>Created Date</Table.HeaderCell>
           <Table.HeaderCell>Created By</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
@@ -57,7 +56,6 @@ function DetailPost (props) {
           <Table.Cell>{post.userId}</Table.Cell>
           <Table.Cell>{post.title}</Table.Cell>
           <Table.Cell>{post.body}</Table.Cell>
-          <Table.Cell>23/02/2020</Table.Cell>
           <Table.Cell>{username}</Table.Cell>
         </Table.Row>
       </Table.Body>

@@ -1,14 +1,17 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import { Table } from 'semantic-ui-react';
+
 import Pagination from '../components/Pagination';
 import DetailPost from '../components/DetailPost';
 import ListComment from '../components/ListComment';
+import UserContext from '../context/UserContext';
 
 function DetailPostPages (props) {
   const id = props.match.params.id;
   const [post, setPost] = useState ({});
-  const [comments, setComments] = useState ([]);
+  const [user, setUser] = useState({});
+  const {comments, setComments} = useContext(UserContext);
   const [loading, setLoading] = useState (false);
   const [currentPage, setCurrentPage] = useState (1);
   const [postPerPage] = useState (10);
@@ -28,9 +31,19 @@ function DetailPostPages (props) {
         setLoading (false);
       };
       fetchPost ();
-    },
-    [id]
+    },[id]
   );
+
+  useEffect(
+    () => {
+      const fetchUser = async () => {
+      setLoading(true);
+      const res = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`);
+      setUser(res.data);
+      setLoading(false);
+  };
+  fetchUser();
+}, [id]);
 
   const indexOfLastPost = currentPage * postPerPage;
   const indexOfFirstPost = indexOfLastPost - postPerPage;
@@ -54,10 +67,11 @@ function DetailPostPages (props) {
     xDetailPost = <DetailPost post={post} />;
     if (currentPost.length > 0) {
       xComment = comments.map ((comment, i) => {
-        return <ListComment key={i} index={i} comment={comment} />;
+        return <ListComment key={i} index={i} comment={comment} user={user} />;
       });
     }
   }
+  
 
   return (
     <div>
@@ -70,7 +84,6 @@ function DetailPostPages (props) {
             <Table.HeaderCell>STT</Table.HeaderCell>
             <Table.HeaderCell>ID</Table.HeaderCell>
             <Table.HeaderCell>Title</Table.HeaderCell>
-            <Table.HeaderCell>Created At</Table.HeaderCell>
             <Table.HeaderCell>Created By</Table.HeaderCell>
             <Table.HeaderCell>Action</Table.HeaderCell>
           </Table.Row>

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { isEmpty as _isEmpty } from 'lodash';
 
 import DetailComments from '../components/DetailComments';
-import { isEmpty as _isEmpty } from 'lodash';
 
 function DetailComment(props) {
     const id = props.match.params.id;
@@ -24,7 +24,7 @@ function DetailComment(props) {
     if (loading) {
         DetailComment = <h1>Loading...</h1>
     } else if(!_isEmpty(comments)){
-        DetailComment = <DetailComments comments={comments} />
+        DetailComment = <DetailComments comments={comments}/>
     }
 
     return (
