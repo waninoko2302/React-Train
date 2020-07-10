@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import axios from 'axios';
 
 import ItemListPosts from '../components/ItemListPosts';
 import {Table} from 'semantic-ui-react';
 // import Control from '../components/Control';
 import Pagination from '../components/Pagination';
-// import UserContext from '../context/UserContext';
+import UserContext from '../context/UserContext';
 
 function ListPost () {
-  const [posts, setPosts] = useState ([]);
+  const {posts, setPosts} = useContext (UserContext);
   const [loading, setLoading] = useState (false);
   const [currentPage, setCurrentPage] = useState (1);
   const [postPerPage] = useState (10);
